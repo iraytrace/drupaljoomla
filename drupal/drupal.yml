@@ -1,8 +1,8 @@
 services:
   drupal:
     build:
-      context: .
-      dockerfile: Dockerfile.drupal
+      context: ${DRUPAL_CONTEXT}
+      dockerfile: ${DRUPAL_CONTEXT}/Dockerfile.drupal
     container_name: drupal
     environment:
       DRUPAL_DB_HOST: mariadb

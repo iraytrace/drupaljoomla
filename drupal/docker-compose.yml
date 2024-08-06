@@ -12,6 +12,7 @@ services:
 
   drupal:
     extends:
+      context: ${DRUPAL_CONTEXT}
       file: drupal.yml
       service: drupal
 

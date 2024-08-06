@@ -10,15 +10,17 @@ services:
       file: mariadb/phpmyadmin.yml
       service: phpmyadmin
 
-  drupal:
-    extends:
-      file: drupal/drupal.yml
-      service: drupal
-
   joomla:
     extends:
       file: joomla/joomla.yml
       service: joomla
+
+  drupal:
+    extends:
+      context: ${DRUPAL_CONTEXT}
+      file: drupal/drupal.yml
+      service: drupal
+
 
 networks:
   internal:
