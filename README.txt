@@ -24,4 +24,6 @@ If you only want to start one of the CMS systems (drupal/joomla), go to that dir
 Github requires tokens for remote push.
 They can be generated at https://github.com/settings/tokens
 
-
+git config --global credential.helper store
+~/.git-credentials:
+https://user:token@github.com
