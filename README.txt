@@ -19,3 +19,9 @@ To stop and delete volumes:
 docker compose down -v
 
 If you only want to start one of the CMS systems (drupal/joomla), go to that directory and run the docker compose command. 
+
+
+Github requires tokens for remote push.
+They can be generated at https://github.com/settings/tokens
+
+
