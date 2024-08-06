@@ -1,0 +1,15 @@
+# Dockerfile
+FROM drupal:latest
+
+# Install Drush
+RUN composer require drush/drush
+
+RUN apt-get update && apt-get install -y mariadb-client
+
+
+# Copy custom setup script
+COPY drupal-setup.sh /usr/local/bin/drupal-setup.sh
+RUN chmod +x /usr/local/bin/drupal-setup.sh
+
+ENTRYPOINT ["/usr/local/bin/drupal-setup.sh"]
+

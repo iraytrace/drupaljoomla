@@ -1,0 +1,26 @@
+
+services:
+  joomla:
+    image: joomla:latest
+    container_name: joomla
+    depends_on:
+      - mariadb
+    environment:
+      JOOMLA_DB_HOST: mariadb
+      JOOMLA_DB_USER: joomla
+      JOOMLA_DB_PASSWORD: joomla_password
+      JOOMLA_DB_NAME: joomla
+      JOOMLA_SITE_NAME: "UXOCOE"
+      JOOMLA_ADMIN_USER: Joomla Hero
+      JOOMLA_ADMIN_USERNAME: boss
+      JOOMLA_ADMIN_PASSWORD: boss_password
+      JOOMLA_ADMIN_EMAIL: iraytrace@gmail.com
+    networks:
+      - internal
+      - local_network
+    ports:
+      - "8082:80" # Expose Joomla on port 8082
+    volumes:
+      - joomla_data:/var/www/html
+      - ./apache_setup.sh:/usr/local/bin/apache_setup.sh
+    entrypoint: ["/bin/bash", "/usr/local/bin/apache_setup.sh"]

@@ -1,0 +1,39 @@
+
+services:
+  mariadb:
+    extends:
+      file: mariadb/mariadb.yml
+      service: mariadb
+
+  phpmyadmin:
+    extends:
+      file: mariadb/phpmyadmin.yml
+      service: phpmyadmin
+
+  drupal:
+    extends:
+      file: drupal/drupal.yml
+      service: drupal
+
+  joomla:
+    extends:
+      file: joomla/joomla.yml
+      service: joomla
+
+networks:
+  internal:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+  local_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16
+
+volumes:
+  db_data:
+  drupal_data:
+  joomla_data:
+

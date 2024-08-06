@@ -1,0 +1,13 @@
+services:
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: example
+    networks:
+      - internal
+      - local_network
+    ports:
+      - "8080:80"
