@@ -12,7 +12,7 @@ services:
 
   drupal:
     extends:
-      context: ${DRUPAL_CONTEXT}
+      context: ${PWD}
       file: drupal.yml
       service: drupal
 
