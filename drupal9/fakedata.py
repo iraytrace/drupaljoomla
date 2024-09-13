@@ -4,7 +4,7 @@ from faker import Faker
 from datetime import datetime, timedelta
 
 # Initialize Faker
-fake = Faker()
+fake = Faker('en_US')
 
 
 
@@ -47,7 +47,7 @@ fed_agencies = ['DoD', 'DHS', 'DoE', 'DoT', 'NASA', 'NSA']
 army_sources = ['ACOM' 'BCOM', 'CCOM', 'DCOM']
 navy_sources = ['ECOM', 'DCOM', 'FCOM', 'GCOM']
 OSD_sources = ['HCOM', 'ICOM', 'JCOM']
-
+orgtypes = ['armie', 'navie', 'aire', 'beach', 'cont', 'non-profit', 'academic']
 
 # Function to generate random date across different years
 def generate_random_date(not_before=datetime(1960, 1, 1),
@@ -80,6 +80,39 @@ def generate_technologies(num_rows):
 
         data.append([classification, tenet, project, primarysource, domain, start, stop, progstatus])
     save_to_csv(data, 'fake_tech.csv')
+
+def generate_phonebook(num_rows):
+    data = [['firstname', 'lastname', 'title', 'organization', 'phone', 'fax', 'email', 'sipremail', 'address', 'city', 'state', 'zip', 'orgtype', 'mission_area'
+
+]]
+    for _ in range(num_rows):
+        firstname = fake.first_name()
+        lastname = fake.last_name()
+        title = fake.job()
+        organization = fake.company()
+        phone = fake.numerify("(###) ###-####")
+        if random.randint(1,9) < 3:
+            fax = fake.numerify("(###) ###-####")
+        else:
+            fax = ''
+
+        dns = fake.domain_name()
+        email = f'{firstname}.{lastname}@{dns}'
+        if random.randint(1,9) < 3:
+            sipremail = f'{firstname}.{lastname}@{dns}.smil.mil'
+        else:
+            sipremail = ''
+
+        street = f'{fake.building_number()} {fake.street_name()}'
+        city = fake.city()                      # City name
+        state = fake.state()                    # State
+        zip_code = fake.postcode()
+        orgtype = random.choice(orgtypes)
+        mission_area = random.choice(mission_areas)
+
+        data.append([firstname, lastname, title, organization, phone, fax, email, sipremail, street, city, state, zip_code, orgtype, mission_area])
+    save_to_csv(data, 'fake_phones.csv')
+
 
 
 def generate_rfi(num_rows):
@@ -142,4 +175,5 @@ def save_to_csv(data, filename):
 if __name__ == "__main__":
     num_rows = 100  # Define how many rows of data you want to generate
     generate_technologies(num_rows)
-    generate_rfi(num_rows)
+    generate_rfi(num_rows*2)
+    generate_phonebook(64)
