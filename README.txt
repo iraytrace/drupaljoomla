@@ -11,10 +11,15 @@ joomla/	   Docker content for installing joomla
 
 To start all services:
 
+cd all
+./startup.sh
+
+
+Old docker notes:
+# building images and starting containers 
 docker compose up --build
 
-To stop and delete volumes:
-
+# To stop and delete volumes:
 docker compose down -v
 
 If you only want to start one of the CMS systems (drupal/joomla), go to that directory and run the docker compose command. 
