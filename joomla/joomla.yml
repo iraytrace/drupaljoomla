@@ -15,7 +15,9 @@ services:
       JOOMLA_ADMIN_USERNAME: boss
       JOOMLA_ADMIN_PASSWORD: boss_password
       JOOMLA_ADMIN_EMAIL: iraytrace@gmail.com
-      JOOMLA_EXTENSIONS_URLS: "https://joomcode.com/index.php/download/category/4-jc-tables?download=6:jc-tables-free" 
+      JOOMLA_EXTENSIONS_URLS: "https://joomcode.com/index.php/download/category/4-jc-tables?download=6:jc-tables-free"
+        #"https://web-eau.net/en/development/responsive-tables?download=plg_responsive_tables_J4.zip"
+        #"https://joomlaboat.com/images/extensions/customtables.zip" 
     networks:
       - internal
       - local_network

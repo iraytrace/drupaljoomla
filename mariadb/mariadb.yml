@@ -10,4 +10,5 @@ services:
       - db_data:/var/lib/mysql
       - ./mariadb-setup.sql:/docker-entrypoint-initdb.d/mariadb-setup.sql
     ports:
-      - "127.0.0.1:3306:3306"
+      # host port 3386 -> container port 3306
+      - "127.0.0.1:3386:3306"
