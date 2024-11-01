@@ -7,6 +7,10 @@ composer require 'drupal/workflow:^1.8'
 composer require 'drupal/workflows_field:^2.1'
 composer require 'drupal/rules:^4.0'
 composer require 'drupal/migrate_tools:^6.0'
+composer require 'drupal/dxpr_theme_helper:^1.0'
+composer require 'drupal/color:^1.0'
+composer require 'drupal/dxpr_theme:^6.0@RC'
+composer require 'drupal/tara:^11.0'
 
 # for drupal 10 / 11
 # composer require 'drupal/view_custom_table:^2.0'
