@@ -16,7 +16,9 @@ TABLES=$(awk '/DROP TABLE/ {print $5}' < $1 | sed 's/[`;]//g')
 
 # Directory to store table dumps
 OUTPUT_DIR="./tables"
-if [ ! -d $OUTPUT_DIR ] ; then
+if [ -d $OUTPUT_DIR ] ; then
+	rm -rf $OUTPUT_DIR/*
+else
 	mkdir -p $OUTPUT_DIR
 fi
 
@@ -25,3 +27,4 @@ for TABLE in $TABLES ; do
 done
 mysql -u$DB_USER -p$DB_PASSWORD -e "drop database $DB_NAME;"
 tar cvf tables.tbz $OUTPUT_DIR
+rm -rf $OUTPUT_DIR
