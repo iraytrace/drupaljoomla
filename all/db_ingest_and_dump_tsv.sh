@@ -6,13 +6,13 @@ if [ $# -ne 2 ] ; then
 fi
 
 # MySQL credentials
-DB_USER="$DB_USER"
-DB_PASSWORD="$DB_PASSWORD"
+DB_USER="root"
+DB_PASSWORD="example"
 DB_NAME="ingest"
 
-mysql -u$DB_USER -p$DB_PASSWORD -e'create database ingest;'
+mysql -u$DB_USER -p$DB_PASSWORD -e "create database $DB_NAME;"
 mysql -u$DB_USER -p$DB_PASSWORD $DB_NAME < $1
-TABLES=$(awk 'DROP TABLE/ {print $5}' < $1
+TABLES=$(awk 'DROP TABLE/ {print $5}' < $1)
 
 # Directory to store table dumps
 OUTPUT_DIR="./tables"
