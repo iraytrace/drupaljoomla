@@ -12,7 +12,7 @@ DB_NAME="ingest"
 
 mysql -u$DB_USER -p$DB_PASSWORD -e "create database $DB_NAME;"
 mysql -u$DB_USER -p$DB_PASSWORD $DB_NAME < $1
-TABLES=$(awk 'DROP TABLE/ {print $5}' < $1)
+TABLES=$(awk '/DROP TABLE/ {print $5}' < $1)
 
 # Directory to store table dumps
 OUTPUT_DIR="./tables"
