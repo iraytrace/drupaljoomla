@@ -1,0 +1,19 @@
+uuid: 45cb6609-2835-409f-9eea-466deba0f3f0
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Contact
+type: contact
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true
+
