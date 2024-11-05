@@ -1,5 +1,6 @@
 import pandas as pd
 import sys
+import os
 
 # Check if the input file name is provided
 if len(sys.argv) != 2:
@@ -17,8 +18,12 @@ for column in df.columns:
     if df[column].isin([0, 1]).all():  # Check if the column only contains 0s and 1s
         df[column] = df[column].apply(lambda x: column if x == 1 else "")
 
-# Save the modified DataFrame to a new TSV file
-output_file = 'output.tsv'
+# Construct the output file name
+file_name, file_extension = os.path.splitext(input_file)
+output_file = f"{file_name}_tax{file_extension}"
+
+# Save the modified DataFrame to the new output file
 df.to_csv(output_file, sep='\t', index=False)
 
 print(f"TSV file has been modified and saved as '{output_file}'")
+
