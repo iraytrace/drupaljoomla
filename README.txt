@@ -1,4 +1,4 @@
-This folder provides the necessary content to install Drupal and/or Joomla on an ubuntu system using Docker.
+This folder provides the necessary content to install Drupal on an ubuntu system using Docker.
 
 Note: The implementation of docker supplied with Ubuntu is a bit dated.
 Don't install it when installing the OS. Instead, install the latest version
@@ -11,19 +11,12 @@ joomla/	   Docker content for installing joomla
 
 To start all services:
 
-cd all
+cd drupal
 ./startup.sh
 
 
-Old docker notes:
-# building images and starting containers 
-docker compose up --build
-
 # To stop and delete volumes:
 docker compose down -v
-
-If you only want to start one of the CMS systems (drupal/joomla), go to that directory and run the docker compose command. 
-
 
 Github requires tokens for remote push.
 They can be generated at https://github.com/settings/tokens
