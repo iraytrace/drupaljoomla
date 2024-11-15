@@ -1,23 +1,16 @@
 #!/bin/bash
 if [ $# -ne 1 ] ; then
-        echo usage $0 Timestamp
-        exit -1
+        echo usage $0 directory
+		echo example: $0 data/2024_01_01_2130-33
+	   exit -1
 fi
 
-TS=$1
+TS=$(basename $1)
+DBCONTAINER=`docker ps | awk '/mariadb/ {print $1}'`
+DRUPALCONTAINER=`docker ps | awk '/drupal-1/ {print $1}'`
 
-if [ -f site_${TS}.sql -a -f site_${TS}.tbz ] ; then
-	DBCONTAINER=`docker ps | awk '/mariadb/ {print $1}'`
-	echo docker cp site_${TS}.sql ${DBCONTAINER}:site_db_backup.sql
-	docker cp site_${TS}.sql ${DBCONTAINER}:site_db_backup.sql
-	echo docker exec ${DBCONTAINER} sh -c 'mysql --user=drupal --password=drupal drupal < /site_db_backup.sql'
-	docker exec ${DBCONTAINER} sh -c 'mysql --user=drupal --password=drupal drupal < /site_db_backup.sql'
+# restore database
+docker exec ${DBCONTAINER} sh -c "bzip2 -d < /data/${TS}/DB.sql.bz | mysql --user=drupal --password=drupal drupal"
 
-	DRUPALCONTAINER=`docker ps | awk '/drupal-1/ {print $1}'`
-	echo docker cp site_${TS}.tbz ${DRUPALCONTAINER}:/site_drupal_files.tbz
-	docker cp site_${TS}.tbz ${DRUPALCONTAINER}:/site_drupal_files.tbz
-	echo docker exec -it ${DRUPALCONTAINER} tar -C /opt/drupal -xaf /site_drupal_files.tbz
-	docker exec -it ${DRUPALCONTAINER} tar -C /opt/drupal -xaf /site_drupal_files.tbz
-else
-	echo no site_drupal_files to restore
-fi
+# restore drupal configuration
+docker exec ${DRUPALCONTAINER} sh -c "/data/import.sh /data/${TS}"

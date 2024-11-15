@@ -1,35 +1,39 @@
 #!/bin/bash
 
-if [ $# -ne 1 ] ; then
-	echo usage $0 Timestamp
+if [ $# -ne 1 -o ! -d $1 ] ; then
+	echo usage $0 Timestamp_directory
 	exit -1
 fi
+
 
 TS=$1
 #!/bin/bash
 
 # Replace with your database credentials
-DB_USER="drupal"
-DB_PASS="drupal"
+DB_USER="root"
+DB_PASS="example"
 DB_NAME="drupal"
 
+DRUPAL=/c/xampp/htdocs/jcehdms
+DEFAULT=${DRUPAL}/web/sites/default
+STASH=$1
 
-export PATH=/c/xampp/mysql/bin/:$PATH
-if [ -f site_${TS}.sql -a -f site_${TS}.tbz ] ; then
-	echo database
-	# Execute the command to drop all tables
-	mysql --user="$DB_USER" --password="$DB_PASS" -N -e "SET FOREIGN_KEY_CHECKS = 0;
-	SELECT CONCAT('DROP TABLE IF EXISTS ', table_name, ';')
-	FROM information_schema.tables WHERE table_schema = '$DB_NAME'; " | mysql --user="$DB_USER" --password="$DB_PASS" "$DB_NAME"
-	mysql --user="$DB_USER" --password="$DB_PASS" "$DB_NAME" < site_${TS}.sql
 
-	echo files
-	if [ -d /c/xampp/htdocs/jcehdms ] ; then
-		echo rm /c/xampp/htdocs/jcehdms
-		rm -rf /c/xampp/htdocs/jcehdms
-	fi
-	echo untar ...
-	tar xaf site_${TS}.tbz -C /c/xampp/htdocs
-else
-	echo missing site_${TS}.sql or site_${TS}.tbz for restore
-fi
+# Clear the database
+echo restore database
+mysql -u $DB_USER -p$DB_PASSWORD -e "DROP database IF EXISTS $DB_NAME;"
+mysql -u $DB_USER -p$DB_PASSWORD -e "CREATE DATABASE $DB_NAME;"
+
+bzip2 -d < ${STASH}/DB.sql.bz | mysql -u $DB_USER -p$DB_PASSWORD $DB_NAME
+# restore settings.php
+echo settings.php
+cp ${STASH}/settings.php ${DEFAULT}/settings.php
+
+# restore the config
+tar xaf ${STASH}/config.tbz -C ${STASH}
+drush config:import --source=${STASH}/config
+
+# restore files
+echo files
+tar -xaf ${STASH}/files.tbz -C ${DEFAULT}
+

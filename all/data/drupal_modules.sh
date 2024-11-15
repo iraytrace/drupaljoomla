@@ -10,17 +10,14 @@ composer require 'drupal/workflows_field:^2.1'
 #composer require 'drupal/color:^1.0'
 #composer require 'drupal/dxpr_theme_helper:^1.0'
 #composer require 'drupal/dxpr_theme:^6.0@RC'
-#composer require 'drupal/tara:^11.0'
+composer require 'drupal/tara:^11.0'
 composer require 'drupal/auto_entitylabel:^3.3'
 #composer require 'drupal/person:^1.0'
 composer require --dev drush/drush
-
 composer require 'drupal/view_custom_table:^2.0'
-
-composer require drupal/eca drupal/bpmn_io
-composer require 'drupal/eca_content_access:^1.0'
-composer require drupal/eca_tamper
-composer require 'drupal/tamper:^1.0@alpha'
+composer require 'drupal/taxonomy_import:^2.0'
+composer require 'drupal/migrate_plus:^6.0'
+composer require 'drupal/migrate_source_csv:^3.6'
 
 # for drupal 10 / 11
 # composer require 'drupal/view_custom_table:^2.0'
