@@ -1,5 +1,7 @@
 #!/bin/bash
 
+shopt -s nullglob
+
 files=(/data/*.crt)
 
 # Check if the array has any elements
@@ -8,3 +10,4 @@ if [[ ${#files[@]} -gt 0 ]]; then
     /usr/sbin/update-ca-certificates
 fi
 
+shopt -u nullglob
