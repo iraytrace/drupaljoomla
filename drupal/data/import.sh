@@ -14,11 +14,11 @@ rm -rf ${BACKUP}
 mkdir -p ${BACKUP}
 
 # restore configuration
-tar -C ${BACKUP} -xaf $1/config.tar 
+tar -C ${BACKUP} -xaf $1/config.tbz 
 drush config:import --source=${BACKUP}/config --yes
 
 # restore settings.php
 install -m 0444 $1/settings.php ${DEFAULT}/settings.php
 
 # restore files
-tar -C ${DEFAULT} -xaf $1/files.tar 
+tar -C ${DEFAULT} -xaf $1/files.tbz 
