@@ -19,6 +19,11 @@ composer require 'drupal/taxonomy_import:^2.0'
 composer require 'drupal/migrate_plus:^6.0'
 composer require 'drupal/migrate_source_csv:^3.6'
 
+#composer require drupal/eca drupal/bpmn_io
+#composer require 'drupal/eca_content_access:^1.0'
+#composer require drupal/eca_tamper
+#composer require 'drupal/tamper:^1.0@alpha'
+
 # for drupal 10 / 11
 # composer require 'drupal/view_custom_table:^2.0'
 # for drupal 9.3+ / 10
