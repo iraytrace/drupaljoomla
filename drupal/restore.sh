@@ -10,7 +10,7 @@ DBCONTAINER=`docker ps | awk '/mariadb/ {print $1}'`
 DRUPALCONTAINER=`docker ps | awk '/drupal-1/ {print $1}'`
 
 # restore database
-docker exec ${DBCONTAINER} sh -c "bzip2 -d < /data/${TS}/DB.sql.bz | mysql --user=drupal --password=drupal drupal"
+docker exec ${DBCONTAINER} sh -c "gunzip < /data/${TS}/DB.sql.gz | mysql --user=drupal --password=drupal drupal"
 
 # restore drupal configuration
 docker exec ${DRUPALCONTAINER} sh -c "/data/import.sh /data/${TS}"
