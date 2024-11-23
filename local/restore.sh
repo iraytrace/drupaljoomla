@@ -1,39 +1,48 @@
 #!/bin/bash
 
-if [ $# -ne 1 -o ! -d $1 ] ; then
-	echo usage $0 Timestamp_directory
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+if [ $# -ne 2 -o ! -d $1 ] ; then
+	echo usage $0 Timestamp_directory site
 	exit -1
 fi
 
-
-TS=$1
-#!/bin/bash
+STASH=$(realpath $1)
+SITE=$2
 
 # Replace with your database credentials
 DB_USER="root"
 DB_PASS="example"
-DB_NAME="drupal"
 
-DRUPAL=/c/xampp/htdocs/jcehdms
+DRUPAL=/c/xampp/htdocs/${SITE}
 DEFAULT=${DRUPAL}/web/sites/default
-STASH=$1
 
+export PATH=$PATH:${DRUPAL}/vendor/bin:/c/xampp/mysql/bin
 
 # Clear the database
-echo restore database
-mysql -u $DB_USER -p$DB_PASSWORD -e "DROP database IF EXISTS $DB_NAME;"
-mysql -u $DB_USER -p$DB_PASSWORD -e "CREATE DATABASE $DB_NAME;"
+echo wipe database
+echo "DROP database IF EXISTS $SITE;" | mysql -u $DB_USER -p$DB_PASS
+echo "CREATE DATABASE $SITE;" | mysql -u $DB_USER -p$DB_PASS
 
-bzip2 -d < ${STASH}/DB.sql.bz | mysql -u $DB_USER -p$DB_PASSWORD $DB_NAME
+echo restore database
+gunzip < ${STASH}/DB.sql.gz | mysql -u $DB_USER -p$DB_PASS $SITE
+
 # restore settings.php
 echo settings.php
 cp ${STASH}/settings.php ${DEFAULT}/settings.php
 
 # restore the config
+echo tar xaf ${STASH}/config.tbz -C ${STASH}
 tar xaf ${STASH}/config.tbz -C ${STASH}
+echo cd ${DRUPAL}
+cd ${DRUPAL}
+echo drush config:import --source=${STASH}/config
 drush config:import --source=${STASH}/config
+cd -
 
 # restore files
 echo files
 tar -xaf ${STASH}/files.tbz -C ${DEFAULT}
+
+
 
