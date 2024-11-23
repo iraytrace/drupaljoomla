@@ -8,6 +8,9 @@ mkdir -p data/${TS}
 	
 USERID=$(id -u) 
 
+# truncate caches
+docker exec ${DBCONTAINER} /data/db_truncate.sh
+
 # save the database
 docker exec ${DBCONTAINER} sh -c "mysqldump --user=drupal --password=drupal drupal | gzip > /data/${TS}/DB.sql.gz ; chown $USERID /data/${TS}/DB.sql.gz"
 
