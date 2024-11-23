@@ -1,9 +1,14 @@
 #!/bin/bash
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+if [ $# -ge 1 ] ; then
+SITE=$1
+else
+SITE=jcehdms
+fi
+echo ${SITE}
 
 cd /c/xampp/htdocs
-composer create-project 'drupal/recommended-project:^10' jcehdms
-cd jcehdms
-. ${SCRIPT_DIR}/drupal_modules.sh
-#tar -xaf ~/Documents/src/Drupal/Tarapro-Drupal-Theme-ul/tarapro.tar -C /c/xampp/htdocs/jcehdms/web/themes
+composer create-project 'drupal/recommended-project:10.3.5' ${SITE}
+cd ${SITE}
+. ${SCRIPT_DIR}/../drupal/data/drupal_modules.sh
