@@ -13,7 +13,7 @@ DEFAULT=${DRUPAL}/web/sites/default
 drush config:export --yes
 
 tar cjf $1/files.tbz -C ${DEFAULT} files
-chown $2 $1/files.tbz
+chown $2:$2 $1/files.tbz
 
 # extract settings.php
-install -o $2 -m 0644 ${DEFAULT}/settings.php $1/settings.php
+install -o $2 -g $2 -m 0644 ${DEFAULT}/settings.php $1/settings.php
