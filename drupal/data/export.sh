@@ -12,7 +12,7 @@ DEFAULT=${DRUPAL}/web/sites/default
 # backup site configuration to config.tbz
 drush config:export --yes
 
-tar xjf $1/files.tbz -C ${DRUPAL} files
+tar cjf $1/files.tbz -C ${DRUPAL} files
 chown $2 /data/files.tbz
 
 # extract settings.php
