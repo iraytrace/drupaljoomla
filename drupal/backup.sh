@@ -9,7 +9,7 @@ mkdir -p data/${TS}
 USERID=$(id -u) 
 
 # save the database
-docker exec ${DBCONTAINER} sh -c "mysqldump --user=drupal --password=drupal drupal | gzip > /data/${TS}/DB.sql.gz ; chown $USERID /data/${TS}/DB.sql.gz"
+docker exec ${DBCONTAINER} sh -c "mysqldump --user=drupal --password=drupal drupal | gzip > /data/${TS}/DB.sql.gz ; chown $USERID:$USERID /data/${TS}/DB.sql.gz"
 
 # save the drupal data and files
 docker exec -it ${DRUPALCONTAINER}  sh -c "/data/export.sh /data/${TS} $USERID"
