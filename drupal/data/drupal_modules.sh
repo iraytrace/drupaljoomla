@@ -8,7 +8,7 @@ sudo composer require 'drush/drush'
 
 composer require 'drupal/view_custom_table:^2.0'
 
-composer require 'drupal/taxonomy_import:^2.0'
+#composer require 'drupal/taxonomy_import:^2.0'
 #composer require 'drupal/eca' 'drupal/bpmn_io'
 #composer require 'drupal/eca_tamper'
 #composer require 'drupal/eca_content_access:^1.0'
