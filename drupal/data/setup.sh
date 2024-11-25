@@ -1,6 +1,9 @@
 #!/bin/bash
 composer require drush/drush
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+. ${SCRIPT_DIR}/drupal_modules.sh
+
 # set up from scratch
 drush site-install standard \
 	--db-url=mysql://drupal:drupal@db/drupal \
@@ -12,7 +15,7 @@ drush site-install standard \
 # point config dir outside container
 mkdir -p /data/config/sync
 sed -i.bak -E '${s/^(.*=\s*)(.*);/\1"\/data\/config\/sync";/}' web/sites/default/settings.php
+rm -R web/sites/default/files/config_*
 
-# save initial config
-drush config:export --yes
-cp web/sites/default/settings.php /data/config/
+chown -R www-data:www-data web/sites/default/*
+
