@@ -14,7 +14,6 @@ To start all services:
 cd drupal
 ./startup.sh
 
-
 # To stop and delete volumes:
 docker compose down -v
 
