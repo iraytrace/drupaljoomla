@@ -1,9 +1,12 @@
 #!/bin/bash
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+echo -------------------------------- DRUSH --------------------------------------
 composer require drush/drush
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-. ${SCRIPT_DIR}/drupal_modules.sh
+php /data/wait_for_db.php
 
+echo -------------------------------- SITE INSTALL --------------------------------------
 # set up from scratch
 drush site-install standard \
 	--db-url=mysql://drupal:drupal@db/drupal \
@@ -13,9 +16,14 @@ drush site-install standard \
 	--yes
 
 # point config dir outside container
+echo -------------------------------- CONFIG DIR --------------------------------------
 mkdir -p /data/config/sync
 sed -i.bak -E '${s/^(.*=\s*)(.*);/\1"\/data\/config\/sync";/}' web/sites/default/settings.php
 rm -R web/sites/default/files/config_*
 
-chown -R www-data:www-data web/sites/default/*
+
+echo -------------------------------- MODULES --------------------------------------
+. ${SCRIPT_DIR}/drupal_modules.sh
+
+#chown -R www-data:www-data web/sites/default/*
 
