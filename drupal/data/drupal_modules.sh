@@ -17,7 +17,7 @@ composer require 'drupal/taxonomy_import:^2.0'
 
 # composer require drupal/core-recommended:10.3.5 drupal/core-composer-scaffold:10.3.5 drupal/core-project-message:10.3.5 --update-with-all-dependencies
 
-echo -------------------------------- CORE MODULES --------------------------------------------
+echo -------------------------------- ENABLE MODULES --------------------------------------------
 drush pm:enable media media_library datetime_range telephone \
 	admin_toolbar admin_toolbar_tools admin_toolbar_search \
 	auto_entitylabel feeds menu_items_visibility view_custom_table single_content_sync taxonomy_import

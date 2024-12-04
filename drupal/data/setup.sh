@@ -25,5 +25,7 @@ rm -R web/sites/default/files/config_*
 echo -------------------------------- MODULES --------------------------------------
 . ${SCRIPT_DIR}/drupal_modules.sh
 
-#chown -R www-data:www-data web/sites/default/*
+# This makes sure the container can write to the files directory
+# when drush does the site-install, it is done as root
+chown -R www-data:www-data web/sites/default/*
 
