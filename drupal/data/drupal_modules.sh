@@ -9,6 +9,8 @@ composer require 'drupal/menu_items_visibility:^1.1'
 composer require 'drupal/view_custom_table:^2.0'
 composer require 'drupal/single_content_sync:^1.4'
 composer require 'drupal/taxonomy_import:^2.0'
+composer require 'drupal/token:^1.15'
+
 #composer require 'drupal/eca' 'drupal/bpmn_io'
 #composer require 'drupal/eca_tamper'
 #composer require 'drupal/eca_content_access:^1.0'
@@ -20,7 +22,7 @@ composer require 'drupal/taxonomy_import:^2.0'
 echo -------------------------------- ENABLE MODULES --------------------------------------------
 drush pm:enable media media_library datetime_range telephone \
 	admin_toolbar admin_toolbar_tools admin_toolbar_search \
-	auto_entitylabel feeds menu_items_visibility view_custom_table single_content_sync taxonomy_import
+	auto_entitylabel feeds menu_items_visibility view_custom_table single_content_sync taxonomy_import token
  if [ $? -ne 0 ]; then
 	echo error enabling modules
 fi
